@@ -8,9 +8,9 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
-const int GAGA_MUTATION_PROBABILITY = 0.015;
+const float GAGA_MUTATION_PROBABILITY = 0.03f;
 
-const int GAGA_GENE_SELECTION_PROBABILITY = 0.5;
+const float GAGA_GENE_SELECTION_PROBABILITY = 0.5f;
 
 
 #endif /* CONFIG_H_ */

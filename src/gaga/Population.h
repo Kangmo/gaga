@@ -66,7 +66,7 @@ public:
 			assert( entity_index >= 0 );
 			assert( (size_t)entity_index < entities.size());
 
-			p.add_entity( entities[i] );
+			p.add_entity( entities[entity_index] );
 		}
 
 		return p.get_best_entity();
@@ -78,6 +78,18 @@ public:
 
 	int get_entity_count() const {
 		return entities.size();
+	}
+
+	std::string to_string() {
+		std::stringstream strstream;
+		int i=0;
+		for (auto e : entities ) {
+			strstream << "entity(" << i++ << ")" << e->to_string() << std::endl;
+			if ( i > 100) {
+				break;
+			}
+		}
+		return strstream.str();
 	}
 
 private :

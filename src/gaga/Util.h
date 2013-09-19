@@ -5,7 +5,7 @@
 
 #include <cstdlib>
 #include <time.h>
-
+#include <iostream>
 #include <Poco/Random.h>
 
 class Util {
@@ -21,6 +21,9 @@ public :
 		}
 
 		float value = r.nextFloat();
+
+//		std::cout << "["<< value <<"]";
+
 		return value;
 	}
 

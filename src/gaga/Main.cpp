@@ -26,21 +26,25 @@ int main(int argc, const char * argv[])
 
 	int max_score = Problem::get_max_score(entityMeta);
 
-	// If we get the 95% of the maximum score, we solved the problem!
-	int minimum_score_requirement = (int)((float)max_score * 0.99);
+	// If we get the 99.9% of the maximum score, we solved the problem!
+	int minimum_score_requirement = (int)((float)max_score * 0.999);
 
 	const Problem problem(number_of_genes, solution, minimum_score_requirement );
 
 
 	EcoSystem ecoSystem(50, // population
 			            5,  // dominant candidate count
-			            true, // keep best entity
+			            false, // keep best entity
 			            entityMeta);
 
 	Entity * solver = ecoSystem.evolve( problem,
 			                            100,
-			                            [](int generation, const Entity & best_entity) {
+			                            [=](int generation, const Entity & best_entity) {
+		float error_ratio = ((float)(max_score-best_entity.get_score())) / (float)max_score;
+
 		std::cout << "Generation " << generation << ", best entity : " << best_entity.to_string() << std::endl;
+
+		std::cout << "Error ratio : " << error_ratio << std::endl;
 	});
 
 	if (solver) {

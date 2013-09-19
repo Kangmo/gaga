@@ -39,14 +39,25 @@ public:
 		std::shared_ptr<Entity> best_entity;
 		for (int generation=1; generation < max_generation; generation++) {
 
-			Population * new_population = new Population(entity_meta);
-
-			// Mutation
-			population->mutate();
-
 			population->solve(problem);
-
+/*
+			std::cout << "printing population." << std::endl;
+			std::cout << population->to_string() << std::endl;
+*/
+/*
+			getchar();
+*/
 			best_entity = population->get_best_entity();
+
+			// invoke call back indicating the generation and the best entity.
+			on_evolution(generation, *best_entity);
+
+			if (problem.get_min_score_requirement() <= best_entity->get_score() ) {
+				solved = true;
+				break;
+			}
+
+			Population * new_population = new Population(entity_meta);
 
 
 			// Selection & Crossover
@@ -57,16 +68,13 @@ public:
 				std::shared_ptr<Entity> e2 = population->select_dominant(domiant_candidate_count);
 
 				std::shared_ptr<Entity> new_entity( e1->crossover(*e2) );
+
 				new_population->add_entity(new_entity);
+//				std::cout << "Adding new entity to next generation : " << new_entity->to_string();
 			}
 
-			// invoke call back indicating the generation and the best entity.
-			on_evolution(generation, *best_entity);
-
-			if (problem.get_min_score_requirement() <= best_entity->get_score() ) {
-				solved = true;
-				break;
-			}
+			// Mutation
+			new_population->mutate();
 
 			// Demolish current population, make the eco-system to have the new population only.
 			delete population;

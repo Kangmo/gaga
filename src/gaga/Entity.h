@@ -42,6 +42,7 @@ public:
 	Entity(const EntityMeta & a_entity_meta) : entity_meta(a_entity_meta){
 		int gene_count = entity_meta.get_gene_count();
 		genes.resize( gene_count );
+		score = 0;
 	}
 
 	virtual ~Entity() {
@@ -80,6 +81,7 @@ public:
 		int gene_count = entity_meta.get_gene_count();
 		for (int i=0; i<gene_count; i++) {
 			if (Util::random() <= GAGA_MUTATION_PROBABILITY) {
+//				std::cout << "Mutating!" << std::endl; getchar();
 				randomize_gene(i);
 			}
 		}
