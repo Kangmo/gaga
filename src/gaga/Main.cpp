@@ -16,18 +16,19 @@
 
 int main(int argc, const char * argv[])
 {
-	int gene_fence_values[] = {2, 40, 50, 6000, 50, 70, 200};
+//	int gene_fence_values[] = {2, 40, 50, 6000, 50, 70, 200};
+	int gene_fence_values[] = {10, 10, 10, 10, 10, 10, 10};
 	EntityMeta entityMeta( sizeof(gene_fence_values)/ sizeof(gene_fence_values[0]), gene_fence_values  );
 
-	int solution[] = {1, 31, 39, 4589, 38, 27, 38};
+	int solution[] = {1, 3, 5, 7, 9, 4, 0};
 	int number_of_genes = sizeof(solution) / sizeof(solution[0]);
 
 	assert(number_of_genes == entityMeta.get_gene_count());
 
 	int max_score = Problem::get_max_score(entityMeta);
 
-	// If we get the 99.9% of the maximum score, we solved the problem!
-	int minimum_score_requirement = (int)((float)max_score * 0.999);
+	// If we get the 100% of the maximum score, we solved the problem!
+	int minimum_score_requirement = (int)((float)max_score * 1);
 
 	const Problem problem(number_of_genes, solution, minimum_score_requirement );
 

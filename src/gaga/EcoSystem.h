@@ -40,10 +40,10 @@ public:
 		for (int generation=1; generation < max_generation; generation++) {
 
 			population->solve(problem);
-/*
+
 			std::cout << "printing population." << std::endl;
 			std::cout << population->to_string() << std::endl;
-*/
+
 /*
 			getchar();
 */
@@ -70,7 +70,7 @@ public:
 				std::shared_ptr<Entity> new_entity( e1->crossover(*e2) );
 
 				new_population->add_entity(new_entity);
-//				std::cout << "Adding new entity to next generation : " << new_entity->to_string();
+//				std::cout << "Adding new entity to next generation : " << new_entity->to_string() << std::endl;
 			}
 
 			// Mutation
