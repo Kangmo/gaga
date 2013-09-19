@@ -8,6 +8,7 @@
 #ifndef ENTITY_H_
 #define ENTITY_H_
 
+#include <assert.h>
 #include <sstream>
 #include "Problem.h"
 #include "Util.h"
@@ -17,7 +18,7 @@ class EntityMeta {
 public :
 	EntityMeta(int a_gene_count, int * a_gene_fence_values) {
 		for (int i=0; i<a_gene_count; i++) {
-			gene_fence_values[i] = a_gene_fence_values[i];
+			gene_fence_values.push_back( a_gene_fence_values[i] );
 		}
 	}
 
@@ -39,6 +40,8 @@ private:
 class Entity {
 public:
 	Entity(const EntityMeta & a_entity_meta) : entity_meta(a_entity_meta){
+		int gene_count = entity_meta.get_gene_count();
+		genes.resize( gene_count );
 	}
 
 	virtual ~Entity() {
@@ -46,9 +49,9 @@ public:
 	}
 
 	void randomize() {
-		int gene_count = entity_meta.get_gene_count();
-		genes.resize( gene_count );
-		for (int i=0; i<gene_count; i++) {
+
+		assert(genes.size() == (size_t)entity_meta.get_gene_count());
+		for (size_t i=0; i<genes.size(); i++) {
 			randomize_gene(i);
 		}
 	}
@@ -57,7 +60,7 @@ public:
 	 *
 	 */
 	void randomize_gene(int index) {
-		genes[index] = entity_meta.get_gene_fence_value(index) * Util::random();
+		genes[index] = (int) ( (float) entity_meta.get_gene_fence_value(index) * Util::random() );
 	}
 
 	/*! Return the evaluation score, after solving the problem recently.
@@ -102,7 +105,7 @@ public:
 	std::string to_string() const {
 		std::stringstream strstream;
 
-		strstream << "[";
+		strstream << "(score="<<score<<")[";
 
 		for ( size_t i=0; i<genes.size(); i++) {
 			strstream << genes[i] << " ";

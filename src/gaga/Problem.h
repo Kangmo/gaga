@@ -16,7 +16,7 @@ class Problem {
 public:
 	Problem(int number_of_genes, int * a_problem_genes, int a_min_score_requirement) {
 		for (int i=0; i<number_of_genes; i++) {
-			problem_genes[i] = a_problem_genes[i];
+			problem_genes.push_back(a_problem_genes[i]);
 		}
 		min_score_requirement = a_min_score_requirement;
 	}
@@ -29,7 +29,7 @@ public:
 		return min_score_requirement;
 	}
 
-	int get_worst_gene_diffs(const EntityMeta & entity_meta) const {
+	static int get_max_score(const EntityMeta & entity_meta) {
 		int worst_diffs = 0;
 		for (int i=0; i< entity_meta.get_gene_count(); i++) {
 			worst_diffs += entity_meta.get_gene_fence_value(i);
@@ -41,7 +41,7 @@ public:
 	 */
 	int get_evaluation_score(const Entity & entity) const {
 		const EntityMeta & entity_meta = entity.get_entity_meta();
-		int worst_diffs = get_worst_gene_diffs(entity_meta);
+		int max_score = get_max_score(entity_meta);
 
 		int total_diffs = 0;
 		for (int i=0; i< entity_meta.get_gene_count(); i++) {
@@ -49,7 +49,7 @@ public:
 			total_diffs += Util::abs(gene_diff);
 		}
 
-		return worst_diffs - total_diffs;
+		return max_score - total_diffs;
 	}
 
 private :

@@ -24,16 +24,22 @@ int main(int argc, const char * argv[])
 
 	assert(number_of_genes == entityMeta.get_gene_count());
 
-	const int MINIMUM_SCORE_REQUIREMENT_FOR_SOLUTION = 10;
+	int max_score = Problem::get_max_score(entityMeta);
 
-	Problem problem(number_of_genes, solution, MINIMUM_SCORE_REQUIREMENT_FOR_SOLUTION );
+	// If we get the 95% of the maximum score, we solved the problem!
+	int minimum_score_requirement = (int)((float)max_score * 0.99);
+
+	const Problem problem(number_of_genes, solution, minimum_score_requirement );
+
 
 	EcoSystem ecoSystem(50, // population
 			            5,  // dominant candidate count
 			            true, // keep best entity
 			            entityMeta);
 
-	Entity * solver = ecoSystem.evolve( problem, [](int generation, const Entity & best_entity) {
+	Entity * solver = ecoSystem.evolve( problem,
+			                            100,
+			                            [](int generation, const Entity & best_entity) {
 		std::cout << "Generation " << generation << ", best entity : " << best_entity.to_string() << std::endl;
 	});
 

@@ -3,17 +3,25 @@
 #ifndef UTIL_H_
 #define UTIL_H_
 
+#include <cstdlib>
+#include <time.h>
+
+#include <Poco/Random.h>
+
 class Util {
 
 public :
-	static const int RANDOM_SEED = 179425237; // A prime number.
-	static const int RANDOM_DIVIDEND = 179426549; // Another prime number.
 
 	static float random() {
-		static int seed = RANDOM_SEED;
-		static int invoked_count = 0;
-		seed = (seed * invoked_count++) % RANDOM_DIVIDEND;
-		return (float) ( seed ) / (float) RANDOM_DIVIDEND;
+		static Poco::Random r;
+		static bool initialized = false;
+		if (!initialized) {
+			r.seed(time(NULL));
+			initialized = true;
+		}
+
+		float value = r.nextFloat();
+		return value;
 	}
 
 	static int abs(int a) {

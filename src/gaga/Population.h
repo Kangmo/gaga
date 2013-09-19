@@ -64,7 +64,7 @@ public:
 			int entity_index = (int) (Util::random() * entities.size());
 
 			assert( entity_index >= 0 );
-			assert( entity_index < entities.size());
+			assert( (size_t)entity_index < entities.size());
 
 			p.add_entity( entities[i] );
 		}
