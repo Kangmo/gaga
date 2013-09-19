@@ -17,10 +17,10 @@
 int main(int argc, const char * argv[])
 {
 //	int gene_fence_values[] = {2, 40, 50, 6000, 50, 70, 200};
-	int gene_fence_values[] = {10, 10, 10, 10, 10, 10, 10};
+	int gene_fence_values[] = {10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
 	EntityMeta entityMeta( sizeof(gene_fence_values)/ sizeof(gene_fence_values[0]), gene_fence_values  );
 
-	int solution[] = {1, 3, 5, 7, 9, 4, 0};
+	int solution[] = {1, 3, 5, 7, 9, 4, 0, 3, 1, 8, 5, 7, 3, 2, 8, 9, 3, 6, 6, 0};
 	int number_of_genes = sizeof(solution) / sizeof(solution[0]);
 
 	assert(number_of_genes == entityMeta.get_gene_count());
