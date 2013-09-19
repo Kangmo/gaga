@@ -8,7 +8,7 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
-const float GAGA_MUTATION_PROBABILITY = 0.03f;
+const float GAGA_MUTATION_PROBABILITY = 0.015f;
 
 const float GAGA_GENE_SELECTION_PROBABILITY = 0.5f;
 
